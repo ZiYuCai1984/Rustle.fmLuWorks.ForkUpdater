@@ -1,0 +1,19 @@
+name: auto push
+
+on:
+  schedule:
+  - cron: '0 0 * * 3'
+  
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Push
+      env:
+        TOKEN_AUTO_PUSH: '${{ secrets.TOKEN_AUTO_PUSH}}'
+      run: powershell.exe ./update.ps1
